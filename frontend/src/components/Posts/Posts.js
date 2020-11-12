@@ -1,5 +1,7 @@
 import React from 'react'
 import Post from './Post/Post'
+
+import {Grid, CircularProgress} from '@material-ui/core'
 import {useSelector} from 'react-redux'
 
 import useStyles from './Styles'
@@ -10,9 +12,17 @@ const Posts = () => {
     console.log(posts)
 
     return (
-        <>
-            <Post />
-        </>
+        !posts.length ? <CircularProgress /> : (
+            <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+                {
+                    posts.map(post => (
+                        <Grid item key={post.id} xs={12}>
+                            <Post post={post} />
+                        </Grid>
+                    ))
+                }
+            </Grid>
+        )
     )
 }
 
